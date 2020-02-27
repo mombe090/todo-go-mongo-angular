@@ -11,19 +11,17 @@ import (
 	"strings"
 )
 
-func (todo *Todo) Save()  *errors_utils.RestError {
+func (todo *Todo) Save() *errors_utils.RestError {
 	res, err := mongo_utils.InsertOne(os.Getenv("MONGODB"), os.Getenv("MONGOCOLLECTION"), todo)
 	if err != nil {
 		return errors_utils.GetInternatServerError(fmt.Sprintf("Insertion Errors %s", err.Error()))
 	}
 	todo.Id = res
 
-
 	return nil
 }
 
-
-func (todo *Todo) Update(id string)  *errors_utils.RestError {
+func (todo *Todo) Update(id string) *errors_utils.RestError {
 	todo.Id = id
 	ojb, err := primitive.ObjectIDFromHex(id)
 
@@ -51,14 +49,12 @@ func (todo *Todo) Update(id string)  *errors_utils.RestError {
 		return errors_utils.GetInternatServerError(fmt.Sprintf("Update Errors %s", err.Error()))
 	}
 
-
-
 	return nil
 }
 
-func (todo *Todo) GetAll()  (*[]Todo, *errors_utils.RestError) {
+func (todo *Todo) GetAll() (*[]Todo, *errors_utils.RestError) {
 	curr, ctx, err := mongo_utils.FindMany(os.Getenv("MONGODB"), os.Getenv("MONGOCOLLECTION"), bson.D{})
-	
+
 	if err != nil {
 		return nil, errors_utils.GetInternatServerError(fmt.Sprintf("Get Message null %s", err.Error()))
 	}
@@ -85,9 +81,9 @@ func (todo *Todo) GetAll()  (*[]Todo, *errors_utils.RestError) {
 		}
 
 		todoTmp := Todo{
-				Id:     id.Hex(),
-				Title: fmt.Sprintf("%s", resTmp["title"]),
-				Done:  done,
+			Id:    id.Hex(),
+			Title: fmt.Sprintf("%s", resTmp["title"]),
+			Done:  done,
 		}
 		todos = append(todos, todoTmp)
 	}
@@ -95,7 +91,7 @@ func (todo *Todo) GetAll()  (*[]Todo, *errors_utils.RestError) {
 	return &todos, nil
 }
 
-func GetOne(m bson.M)  (*Todo, *errors_utils.RestError) {
+func GetOne(m bson.M) (*Todo, *errors_utils.RestError) {
 	singleResul := mongo_utils.FindOne(os.Getenv("MONGODB"), os.Getenv("MONGOCOLLECTION"), m)
 
 	var todo Todo
@@ -112,7 +108,7 @@ func GetOne(m bson.M)  (*Todo, *errors_utils.RestError) {
 	return &todo, nil
 }
 
-func (todo *Todo) DeleteOne() *errors_utils.RestError  {
+func (todo *Todo) DeleteOne() *errors_utils.RestError {
 	obj, err := primitive.ObjectIDFromHex(todo.Id)
 
 	if err != nil {
@@ -125,5 +121,5 @@ func (todo *Todo) DeleteOne() *errors_utils.RestError  {
 		return errors_utils.GetInternatServerError(fmt.Sprintf("Impossible to delete %s", err))
 	}
 
-	return  nil
+	return nil
 }

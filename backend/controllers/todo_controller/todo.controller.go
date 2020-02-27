@@ -47,11 +47,10 @@ func Store(c *gin.Context) {
 	var todo todo.Todo
 
 	if err := c.ShouldBindJSON(&todo); err != nil {
-		c.JSON(http.StatusBadRequest ,errors_utils.GetBadRequest(fmt.Sprintf("Binding %s", err.Error())))
+		c.JSON(http.StatusBadRequest, errors_utils.GetBadRequest(fmt.Sprintf("Binding %s", err.Error())))
 	}
 
 	t, restErr := todo_service.SaveTodo(todo)
-
 
 	if restErr != nil {
 		c.JSON(restErr.Status, restErr)
@@ -66,7 +65,7 @@ func Update(c *gin.Context) {
 	var todo todo.Todo
 
 	if err := c.ShouldBindJSON(&todo); err != nil {
-		c.JSON(http.StatusBadRequest ,errors_utils.GetBadRequest(fmt.Sprintf("Binding %s", err.Error())))
+		c.JSON(http.StatusBadRequest, errors_utils.GetBadRequest(fmt.Sprintf("Binding %s", err.Error())))
 		return
 	}
 
@@ -76,7 +75,6 @@ func Update(c *gin.Context) {
 	}
 
 	t, restErr := todo_service.UpdateTodo(todo, c.Param("id"))
-
 
 	if restErr != nil {
 		c.JSON(restErr.Status, restErr)

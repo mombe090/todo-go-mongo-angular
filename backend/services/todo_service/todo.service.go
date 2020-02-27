@@ -8,17 +8,17 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func GetTodos(t todo.Todo) (*[]todo.Todo, *errors_utils.RestError)  {
+func GetTodos(t todo.Todo) (*[]todo.Todo, *errors_utils.RestError) {
 	todos, restErr := t.GetAll()
 
-	if restErr != nil{
-		return  nil, restErr
+	if restErr != nil {
+		return nil, restErr
 	}
 
 	return todos, nil
 }
 
-func GetTodo(id string) (*todo.Todo, *errors_utils.RestError)  {
+func GetTodo(id string) (*todo.Todo, *errors_utils.RestError) {
 	ojb, err := primitive.ObjectIDFromHex(id)
 
 	if err != nil {
@@ -27,35 +27,34 @@ func GetTodo(id string) (*todo.Todo, *errors_utils.RestError)  {
 
 	todo, restErr := todo.GetOne(bson.M{"_id": ojb})
 
-	if restErr != nil{
-		return  nil, restErr
+	if restErr != nil {
+		return nil, restErr
 	}
-
 
 	return todo, nil
 }
 
-func SaveTodo(todo todo.Todo) (*todo.Todo, *errors_utils.RestError)  {
+func SaveTodo(todo todo.Todo) (*todo.Todo, *errors_utils.RestError) {
 	restErr := todo.Save()
 
-	if restErr != nil{
-		return  nil, restErr
+	if restErr != nil {
+		return nil, restErr
 	}
 
 	return &todo, nil
 }
 
-func UpdateTodo(todo todo.Todo, id string) (*todo.Todo, *errors_utils.RestError)  {
+func UpdateTodo(todo todo.Todo, id string) (*todo.Todo, *errors_utils.RestError) {
 	restErr := todo.Update(id)
 
-	if restErr != nil{
-		return  nil, restErr
+	if restErr != nil {
+		return nil, restErr
 	}
 
 	return &todo, nil
 }
 
-func DeleteTodo(id string) *errors_utils.RestError  {
+func DeleteTodo(id string) *errors_utils.RestError {
 	var todo = todo.Todo{Id: id}
 	return todo.DeleteOne()
 }

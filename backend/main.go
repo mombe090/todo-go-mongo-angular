@@ -6,10 +6,10 @@ import (
 	_ "github.com/subosito/gotenv"
 )
 
-func init()  {
+func init() {
 	gotenv.Load()
 }
 
-func main()  {
+func main() {
 	app.StartApplication()
 }
