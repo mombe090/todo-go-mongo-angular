@@ -1,5 +1,5 @@
 
-FROM golang:1.13.8 AS builder
+FROM golang:1.13 AS builder
 
 
 RUN mkdir /app
