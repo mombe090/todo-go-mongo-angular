@@ -2,7 +2,7 @@ pipeline {
     agent none
     stages {
         
-        stage('Build') {
+        stage('Checkout') {
             agent { 
                     node {
                         label 'production'
