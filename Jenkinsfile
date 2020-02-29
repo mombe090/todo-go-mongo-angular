@@ -1,13 +1,13 @@
 pipeline {
-    agent none
+    agent { 
+            node {
+                    label 'production'
+                } 
+        }
     stages {
         
         stage('Checkout') {
-            agent { 
-                    node {
-                        label 'production'
-                    } 
-                }
+            
             steps {
                 checkout scm
                 sh 'ls -l'
@@ -15,13 +15,10 @@ pipeline {
         }
 
         stage('Build') {
-            agent { 
-                    node {
-                        label 'production'
-                    } 
-                }
+            
             
             steps {
+                
                 sh  """
                         docker build  -t todo_mongo_go:1.0.0 .
                     """
@@ -29,11 +26,7 @@ pipeline {
         }
 
         stage('Build and Deploy') {
-            agent { 
-                    node {
-                        label 'production'
-                    } 
-                }
+            
             
             steps {
                 sh  """
