@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+
+  mongo:
+    restart: always
+    image: mongo
+    ports:
+      - "27017"
+
+  todo-backend:
+    build:
+      context: ./backend
+    ports:
+      - "8090:8090"
