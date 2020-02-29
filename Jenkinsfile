@@ -20,7 +20,7 @@ pipeline {
             steps {
                 
                 sh  """
-                        docker build  -t todo_mongo_go:1.0.0 .
+                       cd backend && docker build  -t todo_mongo_go:1.0.0 .
                     """
             }
         }
