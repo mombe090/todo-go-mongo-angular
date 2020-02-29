@@ -1,12 +1,8 @@
 # **TODO RESTFULL WITH GOLANG & ANGULAR**
 
-This project 
-
 ## Getting Started
 
 To test this project, we have the following way
-
-## Acknowledgments
 
 * With Docker, Docker-Compose ou Docker-Swarm
 * Building natively using the go cli-tools
